@@ -7,7 +7,6 @@ function Register() {
   //   const [email, setEmail] = useState();
   //   const [password, setPassword] = useState();
 
-  //   const handleRegister = () => {};
   const navigate = useNavigate()
   const onFinishHandler = (values) => {
     console.log(values);
