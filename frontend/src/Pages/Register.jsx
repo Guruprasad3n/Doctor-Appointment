@@ -1,6 +1,6 @@
 // import { useState } from "react";
 import "../Styles/Register.css"
-import { Form, Input } from "antd";
+import { Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 function Register() {
   //   const [name, setName] = useState();
@@ -8,8 +8,14 @@ function Register() {
   //   const [password, setPassword] = useState();
 
   const navigate = useNavigate()
-  const onFinishHandler = (values) => {
-    console.log(values);
+  const onFinishHandler = async (values) => {
+    try{
+
+    }
+    catch(e){
+      console.log(e);
+      message.error(`Something Went Wrong`)
+    }
   };
 
   return (

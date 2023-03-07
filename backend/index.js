@@ -19,9 +19,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // routes
-app.get("/", (req, res) => {
-  res.status(200).send("You are in Home Page");
-});
+
+const userRoute = require("./routes/userRoutes")
+
+app.use('/api/v1/user', userRoute)
 
 // listen Port
 const Port = process.env.PORT;
