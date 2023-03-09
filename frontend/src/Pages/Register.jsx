@@ -2,6 +2,7 @@
 import "../Styles/Register.css"
 import { Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios"
 function Register() {
   //   const [name, setName] = useState();
   //   const [email, setEmail] = useState();
@@ -10,7 +11,14 @@ function Register() {
   const navigate = useNavigate()
   const onFinishHandler = async (values) => {
     try{
-
+let res = axios.post(`http://localhost:8000/api/v1/user/register`,values)
+if(res.data.success){
+message.success("Register Successful")
+navigate("/login")
+}
+else{
+  message.error(res.data.message)
+}
     }
     catch(e){
       console.log(e);
