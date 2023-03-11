@@ -1,6 +1,6 @@
 const userModel = require("../models/userMode");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 // SIgnup
 const registerController = async (req, res) => {
   //   const { name, email, password } = req.body;
@@ -50,24 +50,30 @@ const registerController = async (req, res) => {
   }
 };
 
-
 // Login
-const loginController =async(req, res) => {
-    try{
-        const user = await userModel.findOne({email:req.body.email})
-if(!user){
-    res.status(200).send({message:"User Not Found", success:false})
-}
-const isPasswordMatch = await bcrypt.compare(req.body.password, user.password)
-if(!isPasswordMatch){
-    return res.status(200).send({message:"Invalid Email or Password", success:false})
-}    
-const token = jwt.sign({id:user._id}, process.env.JWT_SECRET, {expiresIn:"1d"});
-res.status(200).send({message:"Login Success", success:true, token})
-}catch(e){
-        console.log(e);
-        res.status(500).send({message:`Error in Login ${e.message}`})
+const loginController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ email: req.body.email });
+    if (!user) {
+      res.status(200).send({ message: "User Not Found", success: false });
     }
+    const isPasswordMatch = await bcrypt.compare(
+      req.body.password,
+      user.password
+    );
+    if (!isPasswordMatch) {
+      return res
+        .status(200)
+        .send({ message: "Invalid Email or Password", success: false });
+    }
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+    res.status(200).send({ message: "Login Success", success: true, token });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({ message: `Error in Login ${e.message}` });
+  }
 };
 
 module.exports = { loginController, registerController };
