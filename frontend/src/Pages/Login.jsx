@@ -11,6 +11,7 @@ function Login() {
         values
       );
       if (res.data.success) {
+        localStorage.setItem("token", res.data.token);
         message.success("Login Successful");
         navigate("/");
       } else {
