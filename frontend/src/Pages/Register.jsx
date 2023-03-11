@@ -11,13 +11,14 @@ function Register() {
   const navigate = useNavigate()
   const onFinishHandler = async (values) => {
     try{
-let res = axios.post(`http://localhost:8000/api/v1/user/register`,values)
+let res =await axios.post(`http://localhost:8000/api/v1/user/register`,values)
 if(res.data.success){
 message.success("Register Successful")
 navigate("/login")
 }
 else{
   message.error(res.data.message)
+
 }
     }
     catch(e){
