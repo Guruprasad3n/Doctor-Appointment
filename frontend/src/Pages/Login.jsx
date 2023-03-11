@@ -4,7 +4,20 @@ import { Link, useNavigate } from "react-router-dom";
 function Login(){
     const navigate = useNavigate()
     const onFinishHandler = (values) => {
-      console.log(values);
+      try{
+        let res = axios.post(`http://localhost:8000/api/v1/user/login`,values)
+        if(res.data.success){
+        message.success("Login Successful")
+        // navigate("/login")
+        }
+        else{
+          message.error(res.data.message)
+        }
+            }
+            catch(e){
+              console.log(e);
+              message.error(`Something Went Wrong`)
+            }
     };
   
     return(
