@@ -8,7 +8,7 @@ function Login(){
         let res = axios.post(`http://localhost:8000/api/v1/user/login`,values)
         if(res.data.success){
         message.success("Login Successful")
-        // navigate("/login")
+        navigate("/")
         }
         else{
           message.error(res.data.message)
