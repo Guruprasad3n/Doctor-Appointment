@@ -4,6 +4,7 @@ function ProtectRoute({children}){
     if(localStorage.getItem("token")){
         return children
     }else{
-        return <Navigate to={"/login"}/>
+        return <Navigate to="/login"/>
     }
 }
+export default ProtectRoute

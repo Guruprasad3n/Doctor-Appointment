@@ -3,28 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // SIgnup
 const registerController = async (req, res) => {
-  //   const { name, email, password } = req.body;
-  //   try {
-  //     const existUser = await userModel.findOne({ email });
-  //     if (existUser) {
-  //       return res
-  //         .status(200)
-  //         .send({ message: `user Already Exist`, success: false });
-  //     }
-  //     //  const password = password
-  //     const salt = await bcrypt.genSalt(10);
-  //     const hashedPassword = await bcrypt.hash(password, salt);
-  //     password = hashedPassword;
-  //     const newUser = new userModel({ name, email, password });
-  //     await newUser.save();
-  //     return res
-  //       .status(201)
-  //       .send({ message: `Registration Success`, success: true });
-  //   } catch (e) {
-  //     res
-  //       .status(500)
-  //       .send({ success: false, message: `Something Wrong While Registration` });
-  //   }
   try {
     const existUser = await userModel.findOne({ email: req.body.email });
     if (existUser) {
@@ -55,7 +33,9 @@ const loginController = async (req, res) => {
   try {
     const user = await userModel.findOne({ email: req.body.email });
     if (!user) {
-     return res.status(200).send({ message: "User Not Found", success: false });
+      return res
+        .status(200)
+        .send({ message: "User Not Found", success: false });
     }
     const isPasswordMatch = await bcrypt.compare(
       req.body.password,
@@ -76,4 +56,26 @@ const loginController = async (req, res) => {
   }
 };
 
-module.exports = { loginController, registerController };
+const authController = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ _id: req.body.userId });
+    if (!user) {
+      return res
+        .status(200)
+        .send({ message: "user Not Found", success: false });
+    } else {
+      res.status(200).send({
+        success: true,
+        data: {
+          name: user.name,
+          email: user.email,
+        },
+      });
+    }
+  } catch (e) {
+    console.log(e);
+    return res.status(500).send({ message: "auth Error", success: false, e });
+  }
+};
+
+module.exports = { loginController, registerController, authController };
