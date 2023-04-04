@@ -13,6 +13,22 @@ const userSchema = new Schema({
     type: String,
     require: [true, "Password Is Require"],
   },
+  isAdmin:{
+    type:Boolean,
+    default:false
+  },
+  isDoctor:{
+    type:Boolean,
+    default:false
+  },
+  notification:{
+    type:Array,
+    default:[]
+  },
+  seenNotification:{
+    type:Array,
+    default:[]
+  }
 });
 
 const userModel = model("user", userSchema);

@@ -60,3 +60,22 @@
 .active a, .active i{
     color: rgb(51, 1, 1);
 }
+.header-content{
+    margin: 0 15px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 50px;
+}
+.header-content i{
+    margin-right: 20px;
+    font-size: 1.2rem;
+}
+.header-content a{
+    font-size: 1.2rem;
+    text-decoration: none;
+    margin: 0 10px;
+    color: red;
+    text-transform: capitalize;
+    font-weight: bold;
+}
