@@ -1,7 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
 import Layout from "../Components/Layout";
-import { Col, Form, Input, Row, TimePicker } from "antd";
+import { Col, Form, Input, Row, TimePicker, message } from "antd";
+import { useNavigate } from "react-router-dom";
+import { showLoading } from "../redux/features/alertSlice";
 function ApplyDoctor() {
-  const handleFinish = (values) => {
+  const { user } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleFinish = async (values) => {
+    try {
+        dispatch(showLoading())
+    } catch (e) {
+      console.log(e);
+      message.error("Something Went Worng");
+    }
     console.log(values);
   };
   return (
@@ -119,10 +132,11 @@ function ApplyDoctor() {
           </Col>
           <Col xs={24} md={24} lg={8}></Col>
           <Col xs={24} md={24} lg={8}>
-          <button className="btn btn-primary form-btn" type="submit" >Submit</button>
+            <button className="btn btn-primary form-btn" type="submit">
+              Submit
+            </button>
           </Col>
         </Row>
-       
       </Form>
     </Layout>
   );
