@@ -60,7 +60,7 @@ function Notification() {
       <Tabs>
         <Tabs.TabPane tab="UnRead" key={0}>
           <div className="d-flex justify-content-end">
-            <h5 className="p-2" onClick={handleMarkALlRead}>
+            <h5 className="p-2" style={{cursor:"pointer"}}  onClick={handleMarkALlRead}>
               Mark All Read
             </h5>
           </div>

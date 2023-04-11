@@ -21,8 +21,10 @@ app.use(express.json());
 // routes
 
 const userRoute = require("./routes/userRoutes")
+const adminRoute = require("./routes/adminRoute")
 
 app.use('/api/v1/user', userRoute)
+app.use('/api/v1/admin', adminRoute)
 
 // listen Port
 const Port = process.env.PORT;
