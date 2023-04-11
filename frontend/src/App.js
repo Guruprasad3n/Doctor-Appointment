@@ -8,6 +8,9 @@ import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import ApplyDoctor from "./Pages/ApplyDoctor";
+import Notification from "./Pages/Notification";
+import Users from "./Pages/Admin/Users";
+import Doctors from "./Pages/Admin/Doctors";
 
 function App() {
   const { loading } = useSelector((state) => state.alerts);
@@ -30,6 +33,30 @@ function App() {
             element={
               <ProtectRoute>
                 <ApplyDoctor />
+              </ProtectRoute>
+            }
+          />
+          <Route
+            path="/notification"
+            element={
+              <ProtectRoute>
+                <Notification />
+              </ProtectRoute>
+            }
+          />
+          <Route
+            path="/admin/users"
+            element={
+              <ProtectRoute>
+                <Users />
+              </ProtectRoute>
+            }
+          />
+          <Route
+            path="/admin/doctors"
+            element={
+              <ProtectRoute>
+                <Doctors />
               </ProtectRoute>
             }
           />

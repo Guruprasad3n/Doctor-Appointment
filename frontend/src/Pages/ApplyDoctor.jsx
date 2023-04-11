@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Layout from "../Components/Layout";
 import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useNavigate } from "react-router-dom";
-import { showLoading } from "../redux/features/alertSlice";
+import { hideLoading, showLoading } from "../redux/features/alertSlice";
+import axios from "axios";
 function ApplyDoctor() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -10,8 +11,25 @@ function ApplyDoctor() {
 
   const handleFinish = async (values) => {
     try {
-        dispatch(showLoading())
+      dispatch(showLoading());
+      const res =await axios.post(
+        `http://localhost:8000/api/v1/user/apply-doctor`,
+        { ...values, userId: user._id },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(`token`)}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (res.data.success) {
+        message.success(res.data.success);
+        navigate("/");
+      } else {
+        message.error(res.data.success);
+      }
     } catch (e) {
+      dispatch(hideLoading());
       console.log(e);
       message.error("Something Went Worng");
     }
