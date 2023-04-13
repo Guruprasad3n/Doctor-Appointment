@@ -44,7 +44,7 @@ const doctorSchema = new Schema(
       type: String,
       default: "pending",
     },
-    timimgs: {
+    timings: {
       type: Object,
       require: [true, `Work Timing is Required`],
     },

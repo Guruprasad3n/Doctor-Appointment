@@ -12,7 +12,7 @@ function ApplyDoctor() {
   const handleFinish = async (values) => {
     try {
       dispatch(showLoading());
-      const res =await axios.post(
+      const res = await axios.post(
         `http://localhost:8000/api/v1/user/apply-doctor`,
         { ...values, userId: user._id },
         {
@@ -23,7 +23,7 @@ function ApplyDoctor() {
       );
       dispatch(hideLoading());
       if (res.data.success) {
-        message.success(res.data.success);
+        message.success(res.data.message);
         navigate("/");
       } else {
         message.error(res.data.success);
@@ -35,6 +35,7 @@ function ApplyDoctor() {
     }
     console.log(values);
   };
+
   return (
     <Layout>
       <h1 className="text-center">ApplyDoctor</h1>
@@ -140,7 +141,7 @@ function ApplyDoctor() {
           <Col xs={24} md={24} lg={8}>
             <Form.Item
               label="Timimgs"
-              name="timimgs"
+              name="timings"
               required
               rules={[{ required: true }]}
               className="m-4"
