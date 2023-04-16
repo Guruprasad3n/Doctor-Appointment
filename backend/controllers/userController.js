@@ -2,6 +2,7 @@ const userModel = require("../models/userMode");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const doctorModel = require("../models/doctorModel");
+const appointmentModel = require("../models/appointmentModel");
 // SIgnup
 const registerController = async (req, res) => {
   try {
@@ -48,7 +49,7 @@ const loginController = async (req, res) => {
         .send({ message: "Invalid Email or Password", success: false });
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "1h",
     });
     res.status(200).send({ message: "Login Success", success: true, token });
   } catch (e) {
@@ -134,9 +135,59 @@ const deleteAllNotificationController = async (req, res) => {
     user.seenNotification = [];
     const updatedUser = await user.save();
     updatedUser.password = undefined;
-    res.status(200).send({ message: `Notification Delete Successfully`, success: true, data:updatedUser });
+    res
+      .status(200)
+      .send({
+        message: `Notification Delete Successfully`,
+        success: true,
+        data: updatedUser,
+      });
   } catch (e) {
     res.status(500).send({ message: `Unable To delete`, success: false, e });
+  }
+};
+
+const getAllDoctorsController = async (req, res) => {
+  try {
+    const doctor = await doctorModel.find({ status: "approved" });
+    res
+      .status(200)
+      .send({
+        success: true,
+        message: `Doctor Data Fetch Success`,
+        data: doctor,
+      });
+  } catch (e) {
+    console.log(e);
+    res
+      .status(500)
+      .send({ success: false, message: `Doctor data Fetching Failed `, e });
+  }
+};
+
+const bookAppointmentController = async (req, res) => {
+  try {
+    req.body.status = "pending";
+    const newAppointment = new appointmentModel(req.body);
+    await newAppointment.save();
+    const user = await userModel.findOne({ _id: req.body.doctorInfo.userId });
+    user.notification.push({
+      type: `New Appointment Requested`,
+      message: `A new Appointment Request From ${req.body.userInfo.name}`,
+      onClickPath: "/user/appointment",
+    });
+    await user.save();
+    res
+      .status(200)
+      .send({ success: true, message: `Appointment Booked Successfull` });
+  } catch (e) {
+    res
+      .status(500)
+      .send({
+        success: false,
+        e,
+        message: `Error In Booking Appointment System`,
+      });
   }
 };
 
@@ -147,4 +198,6 @@ module.exports = {
   applyDoctorController,
   getAllNotificationController,
   deleteAllNotificationController,
+  getAllDoctorsController,
+  bookAppointmentController,
 };

@@ -4,17 +4,23 @@ import { Col, Form, Input, Row, TimePicker, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import { hideLoading, showLoading } from "../redux/features/alertSlice";
 import axios from "axios";
+import moment from "moment";
 function ApplyDoctor() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const defaultValue= "abc"
 
   const handleFinish = async (values) => {
     try {
       dispatch(showLoading());
       const res = await axios.post(
         `http://localhost:8000/api/v1/user/apply-doctor`,
-        { ...values, userId: user._id },
+        { ...values, userId: user._id,
+          timings: [
+            moment(values.timings[0]).format("HH:mm"),
+            moment(values.timings[1]).format("HH:mm"),
+          ], },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem(`token`)}`,
@@ -39,7 +45,7 @@ function ApplyDoctor() {
   return (
     <Layout>
       <h1 className="text-center">ApplyDoctor</h1>
-      <Form layout="vertical" onFinish={handleFinish} className="m-2">
+      <Form layout="vertical" onFinish={handleFinish} className="m-2" defaultValue={defaultValue}>
         <h6 className="">Persional Details: </h6>
         <Row gutter={20}>
           <Col xs={24} md={24} lg={8}>

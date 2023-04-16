@@ -10,13 +10,11 @@ const getDoctorInfoController = async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    res
-      .status(500)
-      .send({
-        status: false,
-        message: `Error while Fetching Doctor Ingormation`,
-        e,
-      });
+    res.status(500).send({
+      status: false,
+      message: `Error while Fetching Doctor Ingormation`,
+      e,
+    });
   }
 };
 const updateProfileController = async (req, res) => {
@@ -35,4 +33,29 @@ const updateProfileController = async (req, res) => {
   }
 };
 
-module.exports = { getDoctorInfoController, updateProfileController };
+const getDoctorByIdCOntorller = async (req, res) => {
+  try {
+    const doctor = await doctorModel.findOne({ _id: req.body.doctorId });
+    res
+      .status(200)
+      .send({
+        success: true,
+        message: `Single Doctor Profile Fetching Success`,
+        data: doctor,
+      });
+  } catch (e) {
+    res
+      .status(500)
+      .send({
+        success: false,
+        e,
+        message: `Error In Fetching Single Doctor Profile`,
+      });
+  }
+};
+
+module.exports = {
+  getDoctorInfoController,
+  updateProfileController,
+  getDoctorByIdCOntorller,
+};
