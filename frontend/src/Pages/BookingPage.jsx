@@ -38,6 +38,10 @@ function BookingPage() {
   // Booking Button
   const handleBooking = async () => {
     try {
+      setIsAvailable(true);
+      if (!date && !time) {
+        return alert(`Date & Time Required`);
+      }
       dispatch(showLoading());
       const res = await axios.post(
         `http://localhost:8000/api/v1/user/book-appointment`,
@@ -51,13 +55,42 @@ function BookingPage() {
         },
         {
           headers: {
-            Authorization: `Beares ${localStorage.getItem(`token`)}`,
+            Authorization: `Bearer ${localStorage.getItem(`token`)}`,
           },
         }
       );
       dispatch(hideLoading());
       if (res.data.success) {
         message.success(res.data.message);
+      }
+    } catch (e) {
+      dispatch(hideLoading());
+      console.log(e);
+    }
+  };
+
+  const handelAvailable = async () => {
+    try {
+      dispatch(showLoading());
+      const res = await axios.post(
+        `http://localhost:8000/api/v1/user/check-Availity`,
+        {
+          doctorId: params.doctorId,
+          date,
+          time,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(`token`)}`,
+          },
+        }
+      );
+      dispatch(hideLoading());
+      if (res.data.success) {
+        setIsAvailable(true);
+        message.success(res.data.message);
+      } else {
+        message.error(res.data.message);
       }
     } catch (e) {
       dispatch(hideLoading());
@@ -85,18 +118,24 @@ function BookingPage() {
               <DatePicker
                 className="m-2"
                 format="DD-MM-YYYY"
-                onChange={(value) =>
-                  setData(moment(value).format("DD-MM-YYYY"))
-                }
+                onChange={(value) => {
+                  setData(moment(value).format("DD-MM-YYYY"));
+                }}
               />
               <TimePicker
                 className="m-2"
                 format="HH:mm"
-                onChange={(value) => setTime(moment(value).format("HH:mm"))}
+                onChange={(value) => {
+                  setTime(moment(value).format("HH:mm"));
+                }}
               />
-              <button className="btn btn-primary mt-2">
+              <button
+                className="btn btn-primary mt-2"
+                onClick={handelAvailable}
+              >
                 Check Availability
               </button>
+
               <button className="btn btn-dark mt-2" onClick={handleBooking}>
                 Book Appointment
               </button>
