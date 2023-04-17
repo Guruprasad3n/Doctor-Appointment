@@ -1,3 +1,4 @@
+const appointmentModel = require("../models/appointmentModel");
 const doctorModel = require("../models/doctorModel");
 
 const getDoctorInfoController = async (req, res) => {
@@ -36,21 +37,36 @@ const updateProfileController = async (req, res) => {
 const getDoctorByIdCOntorller = async (req, res) => {
   try {
     const doctor = await doctorModel.findOne({ _id: req.body.doctorId });
-    res
-      .status(200)
-      .send({
-        success: true,
-        message: `Single Doctor Profile Fetching Success`,
-        data: doctor,
-      });
+    res.status(200).send({
+      success: true,
+      message: `Single Doctor Profile Fetching Success`,
+      data: doctor,
+    });
   } catch (e) {
-    res
-      .status(500)
-      .send({
-        success: false,
-        e,
-        message: `Error In Fetching Single Doctor Profile`,
-      });
+    res.status(500).send({
+      success: false,
+      e,
+      message: `Error In Fetching Single Doctor Profile`,
+    });
+  }
+};
+
+const doctorAppointmentController = async (req, res) => {
+  try {
+    const doctor = await doctorModel.findOne({ userId: req.body.userId });
+    const appointment = await appointmentModel.find({ doctorId: doctor.userId });
+    res.status(200).send({
+      success: true,
+      message: `Doctor Appointment Fetch Successfull`,
+      data: appointment,
+    });
+  } catch (e) {
+    console.log(e);
+    res.status(500).send({
+      success: false,
+      message: `Error While Fetching Doctor Appointment`,
+      e,
+    });
   }
 };
 
@@ -58,4 +74,5 @@ module.exports = {
   getDoctorInfoController,
   updateProfileController,
   getDoctorByIdCOntorller,
+  doctorAppointmentController,
 };

@@ -220,15 +220,16 @@ const checkSlotsAvailabilityController = async (req, res) => {
 
 const userAppointmentsController = async (req, res) => {
   try {
-    const appointments = await appointmentModel.find({
+    const docAppointment = await appointmentModel.find({
       userId: req.body.userId,
     });
     res.status(200).send({
       success: true,
       message: `User Appointment Fetch Success`,
-      data: appointments,
+      data: docAppointment,
     });
   } catch (e) {
+    console.log(e);
     res
       .status(500)
       .send({ success: false, message: `Error In User Appointments`, e });
