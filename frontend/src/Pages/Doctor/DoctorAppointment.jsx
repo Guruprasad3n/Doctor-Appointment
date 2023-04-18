@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 import moment from "moment";
-import { Table } from "antd";
+import { Table, message } from "antd";
 import Layout from "../../Components/Layout";
 
 function DoctorAppointment() {
@@ -32,6 +32,26 @@ function DoctorAppointment() {
     getAppointments();
   }, []);
 
+  const handleStatus = async (record, status) => {
+    try {
+      const res = await axios.post(
+        `http://localhost:8000/api/v1/doctor/update-status`,
+        { appointmentId: record._id, status },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(`token`)}`,
+          },
+        }
+      );
+      if(res.data.success){
+        message.success(res.data.message);
+        getAppointments(  )
+      }
+    } catch (e) {
+      console.log(e);
+      message.error(`Something Went Wrong`);
+    }
+  };
   const colums = [
     { title: `ID`, dataIndex: `_id` },
     // {
@@ -59,6 +79,30 @@ function DoctorAppointment() {
       ),
     },
     { title: `Status`, dataIndex: `status` },
+    {
+      title: "Actions",
+      dataIndex: `actions`,
+      render: (text, record) => (
+        <div className="d-flex">
+          {record.status === "pending" && (
+            <div className="d-flex">
+              <button
+                className="btn btn-success"
+                onClick={() => handleStatus(record, "approved")}
+              >
+                Approve
+              </button>
+              <button
+                className="btn btn-danger ms-2"
+                onClick={() => handleStatus(record, "rejected")}
+              >
+                Reject
+              </button>
+            </div>
+          )}
+        </div>
+      ),
+    },
   ];
 
   return (
