@@ -3,7 +3,14 @@
 This is a Doctor Appointment App in this App We can Book Appointment for Doctor and the Patient Can Consolut to the Doctor. Doctor Can apply for Work with them.
 
 
-## Available Scripts
+## Tech Stacks To Create This App
+
+I have Created This app using These tech Stacks
+
+### Frontend
+        **Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+
 
 In the project directory, you can run:
 
