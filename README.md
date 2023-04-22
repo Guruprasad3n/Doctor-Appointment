@@ -8,7 +8,7 @@ This is a Doctor Appointment App in this App We can Book Appointment for Doctor 
 I have Created This app using These tech Stacks
 
 ### Frontend
-**HTML,** **CSS,** **Bootstrap,** **React-Js**
+**`HTML,`** **CSS,** **Bootstrap,** **React-Js**
 ### Backend
 **Node-Js,** **Express-js**
 ### Database
