@@ -8,7 +8,12 @@ This is a Doctor Appointment App in this App We can Book Appointment for Doctor 
 I have Created This app using These tech Stacks
 
 ### Frontend
-        **Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**HTML** **CSS** **Bootstrap** **React-Js**
+### Backend
+**Node-Js** **Express-js**
+### Database
+**Mongo-DB**
+
 
 
 
