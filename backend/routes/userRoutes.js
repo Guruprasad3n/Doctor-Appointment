@@ -10,6 +10,7 @@ const {
   bookAppointmentController,
   checkSlotsAvailabilityController,
   userAppointmentsController,
+  updateUserProfileController,
 } = require("../controllers/userController");
 const authMiddleware = require("../middlewares/authMiddleware");
 // loginController
@@ -51,6 +52,9 @@ router.post(
   authMiddleware,
   checkSlotsAvailabilityController
 );
+
+// Update User Profile
+router.post("/userdata-update", authMiddleware, updateUserProfileController);
 
 router.get("/user-appointments", authMiddleware, userAppointmentsController);
 

@@ -49,7 +49,7 @@ function Layout({ children }) {
         <div className="layout">
           <div className="sidebar">
             <div className="logo">
-              <h6>DOCRTOR</h6>
+              <h6>DOCTOR</h6>
               <hr />
             </div>
             <div className="menu">
@@ -85,7 +85,7 @@ function Layout({ children }) {
                   <i className="fa-solid fa-bell"></i>
                 </Badge>
 
-                <Link to="/profile">{user?.name}</Link>
+                <Link to={`/${user}/profile/${user?._id}`}>{user?.name}</Link>
               </div>
             </div>
             <div className="body">{children}</div>

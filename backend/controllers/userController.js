@@ -107,6 +107,24 @@ const applyDoctorController = async (req, res) => {
   }
 };
 
+// User Profile Update
+const updateUserProfileController = async (req, res) => {
+  try {
+    const doctor = await userModel.findOneAndUpdate(
+      { userId: req.body.userId },
+      req.body
+    );
+    res
+      .status(201)
+      .send({ success: true, message: `Profile Updated`, data: doctor });
+  } catch (e) {
+    res
+      .status(500)
+      .send({ success: false, message: `Profile is Unable To update`, e });
+  }
+};
+
+
 const getAllNotificationController = async (req, res) => {
   try {
     const user = await userModel.findOne({ _id: req.body.userId });
@@ -246,4 +264,5 @@ module.exports = {
   bookAppointmentController,
   checkSlotsAvailabilityController,
   userAppointmentsController,
+  updateUserProfileController
 };
