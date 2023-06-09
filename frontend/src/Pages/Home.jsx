@@ -30,7 +30,7 @@ function Home() {
   return (
     <Layout>
       <h1 className="text-center">Home Page</h1>
-      <Row>{doctor && doctor.map((e) => <DoctorList doctor={e} />)}</Row>
+      <Row>{doctor && doctor.map((e) =><div key={e._id}><DoctorList doctor={e} /></div> )}</Row>
     </Layout>
   );
 }
