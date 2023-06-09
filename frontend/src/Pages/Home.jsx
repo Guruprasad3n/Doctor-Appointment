@@ -8,7 +8,7 @@ function Home() {
   const getUserData = async () => {
     try {
       let res = await axios.get(
-        `http://localhost:8000/api/v1/user/getAllDoctors`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/getAllDoctors`,
         {
           headers: {
             Authorization: "Bearer" + " " + localStorage.getItem("token"),

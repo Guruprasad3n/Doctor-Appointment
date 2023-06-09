@@ -15,7 +15,7 @@ function ApplyDoctor() {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/apply-doctor`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/apply-doctor`,
         { ...values, userId: user._id,
           timings: [
             moment(values.timings[0]).format("HH:mm"),

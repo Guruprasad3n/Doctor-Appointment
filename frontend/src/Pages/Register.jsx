@@ -16,7 +16,7 @@ function Register() {
   const onFinishHandler = async (values) => {
     try{
       dispatch(showLoading())
-let res =await axios.post(`http://localhost:8000/api/v1/user/register`,values)
+let res =await axios.post(`https://doctorappointment-pocm.onrender.com/api/v1/user/register`,values)
 dispatch(hideLoading())
 if(res.data.success){
 message.success("Register Successful")

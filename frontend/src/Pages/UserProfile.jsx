@@ -21,7 +21,7 @@ function UserProfile() {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/userdata-update`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/userdata-update`,
         {
           ...values,
           userId: user._id,

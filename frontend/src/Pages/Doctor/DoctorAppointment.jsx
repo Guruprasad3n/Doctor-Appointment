@@ -12,7 +12,7 @@ function DoctorAppointment() {
   const getAppointments = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/v1/doctor/doctor-appointment`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/doctor/doctor-appointment`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem(`token`)}`,
@@ -35,7 +35,7 @@ function DoctorAppointment() {
   const handleStatus = async (record, status) => {
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/doctor/update-status`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/doctor/update-status`,
         { appointmentId: record._id, status },
         {
           headers: {

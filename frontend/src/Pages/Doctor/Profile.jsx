@@ -19,7 +19,7 @@ function Profile() {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `http://localhost:8000/api/v1/doctor/updateProfile`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/doctor/updateProfile`,
         {
           ...values,
           userId: user._id,
@@ -50,7 +50,7 @@ function Profile() {
   const getDoctorInformation = async () => {
     try {
       const res = await axios.post(
-        `http://localhost:8000/api/v1/doctor/getDoctorInfo`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/doctor/getDoctorInfo`,
         { userId: params.id },
         {
           headers: {

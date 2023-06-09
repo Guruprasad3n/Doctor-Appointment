@@ -8,6 +8,7 @@
 /mongoData.md
 /.pnp
 .pnp.js
+/.git
 
 # testing
 /coverage
@@ -25,3 +26,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local Netlify folder
+.netlify

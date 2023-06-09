@@ -11,7 +11,7 @@ function Login() {
     try {
       dispatch(showLoading());
       let res = await axios.post(
-        `http://localhost:8000/api/v1/user/login`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/login`,
         values
       );
       window.location.reload()

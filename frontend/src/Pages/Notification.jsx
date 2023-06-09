@@ -13,7 +13,7 @@ function Notification() {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/get-all-notification`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/get-all-notification`,
         { userId: user._id },
         {
           headers: {
@@ -37,7 +37,7 @@ function Notification() {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/delete-all-notification`,{ userId: user._id },{
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/delete-all-notification`,{ userId: user._id },{
           headers: {
             Authorization: `Bearer ${localStorage.getItem(`token`)}`,
           },

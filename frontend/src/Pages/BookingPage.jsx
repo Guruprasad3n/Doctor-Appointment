@@ -17,7 +17,7 @@ function BookingPage() {
   const getUserData = async () => {
     try {
       let res = await axios.post(
-        `http://localhost:8000/api/v1/doctor/getDoctorById`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/doctor/getDoctorById`,
         {
           doctorId: params.doctorId,
         },
@@ -44,7 +44,7 @@ function BookingPage() {
       }
       dispatch(showLoading());
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/book-appointment`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/book-appointment`,
         {
           doctorId: params.doctorId,
           userId: user._id,
@@ -73,7 +73,7 @@ function BookingPage() {
     try {
       dispatch(showLoading());
       const res = await axios.post(
-        `http://localhost:8000/api/v1/user/check-Availity`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/user/check-Availity`,
         {
           doctorId: params.doctorId,
           date,

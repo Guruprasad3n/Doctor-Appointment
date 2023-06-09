@@ -7,7 +7,7 @@ function Users() {
   const getUsers = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:8000/api/v1/admin/getAllUsers`,
+        `https://doctorappointment-pocm.onrender.com/api/v1/admin/getAllUsers`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem(`token`)}`,
@@ -29,22 +29,32 @@ function Users() {
   const columns = [
     { title: "Name", dataIndex: "name" },
     { title: "Email", dataIndex: "email" },
-    { title: "Doctor", dataIndex: "isDoctor", render:(text, record)=>(
-        <span>{record.isDoctor? 'Yes':'No'}</span>
-    ) },
+    {
+      title: "Doctor",
+      dataIndex: "isDoctor",
+      render: (text, record) => <span>{record.isDoctor ? "Yes" : "No"}</span>,
+    },
 
-
-    { title: "Actions", dataIndex: "actions", render:(text, record)=>(
-        <div className="d-flex" key={users._id} >
-            <button className="btn btn-danger">Block</button>
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (text, record) => (
+        <div className="d-flex" key={users._id}>
+          <button className="btn btn-danger">Block</button>
         </div>
-    ) },
-];
-// console.log(users)
+      ),
+    },
+  ];
+  // console.log(users)
   return (
     <Layout>
       <h1 className="text-center">Users</h1>
-      <Table className="text-center m-3" columns={columns} dataSource={users} key={users._id} />
+      <Table
+        className="text-center m-3"
+        columns={columns}
+        dataSource={users}
+        key={users._id}
+      />
     </Layout>
   );
 }
